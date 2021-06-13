@@ -12,8 +12,20 @@ const rock_div=document.getElementById("r");
 const paper_div=document.getElementById("p");
 const scissors_div=document.getElementById("s");
 const reset_img=document.getElementById("resetImg");
+const delScore_span=document.getElementById('del-label');
+const userScoreStored_span=document.getElementById("user-score-stored");
+const compScoreStored_span=document.getElementById("comp-score-stored");
 
 function main() {
+
+    if(localStorage.getItem("user")===null){
+        localStorage.setItem("user",0);
+        localStorage.setItem("comp", 0);
+    }else{
+        userScoreStored_span.innerHTML=localStorage.getItem("user");
+        compScoreStored_span.innerHTML=localStorage.getItem("comp");
+    }
+
     reset_img.style="display:none;";
     
     rock_div.addEventListener("click",()=>{game("r");});
@@ -23,6 +35,8 @@ function main() {
     scissors_div.addEventListener("click",()=>{game("s");});
 
     reset_img.addEventListener("click",()=>{handleReset();});
+
+    delScore_span.addEventListener("click",()=>{handeDeleteScore();});
 }
 
 function game(userChoice){
@@ -62,6 +76,16 @@ function userWin(userChoice,compChoice){
     userScore_span.innerHTML=userScore;
     result_div.innerHTML=`${userWord}${smallUserWord} beats ${compWord}${smallCompWord}. You win!`;
     setGlow(userChoice,"green");
+
+    let difference =userScore-compScore;
+    let best=localStorage.getItem("user")-localStorage.getItem("comp");
+    if(difference>best){
+        localStorage.setItem("user",userScore);
+        localStorage.setItem("comp", compScore);
+        compScoreStored_span.innerHTML=localStorage.getItem("comp");
+        userScoreStored_span.innerHTML=localStorage.getItem("user");
+        setGlow("stored","green");
+    }
 }
 
 function compWin(userChoice,compChoice){
@@ -112,6 +136,17 @@ function handleReset(){
         userScore_span.innerHTML=userScore;
         compScore_span.innerHTML=compScore;
         reset_img.style="display:none;";
+        result_div.innerHTML="Lets play!";
+    }
+}
+
+function handeDeleteScore(){
+    let answer = confirm("Do you really want delete it?");
+    if (answer) {
+        localStorage.setItem("user",0);
+        localStorage.setItem("comp", 0);
+        userScoreStored_span.innerHTML=0;
+        compScoreStored_span.innerHTML=0;
     }
 }
 

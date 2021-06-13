@@ -4,6 +4,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: Asap, sans-serif;
 }
 
 body{
@@ -130,11 +131,31 @@ header > h1 {
     background: rgb(196, 14, 14);
 }
 
+#scores{
+    text-align: center;
+    margin:20px auto;
+    color:white;
+    font-size: 1.75em;
+    padding: 10px 0 5px 0;
+    font-family: Asap, sans-serif;
+    position: relative;
+    transition: all 0.3s ease;
+}
 
+#del-label{
+    position: absolute;
+    top: 30px;
+    right: -30px;
+}
+#del-label:hover{
+    cursor: pointer;
+}
 
+hr {
+    width: 20%;
+    margin: auto;
+}
 
-
-
-
-
-
+.sep{
+    margin-top: 2em;
+}
