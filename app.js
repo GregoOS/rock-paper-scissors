@@ -15,6 +15,7 @@ const reset_img=document.getElementById("resetImg");
 const delScore_span=document.getElementById('del-label');
 const userScoreStored_span=document.getElementById("user-score-stored");
 const compScoreStored_span=document.getElementById("comp-score-stored");
+const notification_div = document.getElementById("notifications");
 
 function main() {
 
@@ -25,6 +26,8 @@ function main() {
         userScoreStored_span.innerHTML=localStorage.getItem("user");
         compScoreStored_span.innerHTML=localStorage.getItem("comp");
     }
+
+    createNotification();
 
     reset_img.style="display:none;";
     
@@ -37,6 +40,10 @@ function main() {
     reset_img.addEventListener("click",()=>{handleReset();});
 
     delScore_span.addEventListener("click",()=>{handeDeleteScore();});
+
+    window.addEventListener("keydown", function (event) {
+        game(event.key);
+        });
 }
 
 function game(userChoice){
@@ -129,6 +136,7 @@ function setGlow(userChoice,color){
 }
 
 function handleReset(){
+    createNotification();
     let answer = confirm("Do you really want restart?");
     if (answer) {
         userScore=0;
@@ -148,6 +156,23 @@ function handeDeleteScore(){
         userScoreStored_span.innerHTML=0;
         compScoreStored_span.innerHTML=0;
     }
+}
+
+function createNotification(){
+    const notif=document.createElement("div");
+    notif.classList.add("toast");
+
+    notif.innerText="Press 'r' to play Rocks, 'p' to play Paper and 's' to play scissors.";
+
+    notification_div.appendChild(notif);
+
+    setTimeout(function(){
+        $(notif).fadeTo(1000, 0.01, function(){ 
+            $(this).slideUp(150, function() {
+                $(this).remove(); 
+            }); 
+        });
+    },3000);
 }
 
 document.addEventListener("DOMContentLoaded", main); 

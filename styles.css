@@ -159,3 +159,19 @@ hr {
 .sep{
     margin-top: 2em;
 }
+
+#notifications{
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+}
+
+.toast{
+    border-radius: 10px;
+    background-color: #666c80;
+    color: white;
+    font-family: Asap, sans-serif;
+    padding: 2rem;
+    margin-top: 10px;
+}
+
